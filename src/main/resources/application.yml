@@ -1,0 +1,73 @@
+configs:
+  appName: CresWaveBlog
+  schema: CRESWAVEBLOG
+
+  delete_success_status_code: 5
+  default_error_message: Server Error
+  duplicate_entry_desc: Duplicate Entry
+  failure_result_code: 0
+  failure_status_code: 4
+  failure_status_desc: An error occurred while processing request
+  failure_status_type: 4
+  missing_params_status_code: 3
+  not_found_status_desc: The record was not found
+  permission_denied_status_desc: Permission Denied
+  record_active: 1
+  record_inactive: 0
+  record_archived: 3
+  session_expired: Session expired
+  success_status_code: 1
+  success_status_desc: Request processed successfully
+  failed_auth_desc: we could not authenticate the given credentials
+  success_status_type: 1
+  user_registration_message: Dear USER, your account has been successfully registered,
+    Click  LINK to set your password.
+  date_format: yyyy-MM-dd hh:mm
+  jwt_secret:  413F4428472B4B6250655368566D5970337336763979244226452948404D6351
+  jwt_expiration: 18000000
+
+
+
+
+
+
+
+
+
+
+logging:
+  level:
+    com:
+      howtodoinjava: DEBUG
+    org:
+      hibernate: DEBUG
+    root: DEBUG
+    level:
+      root: INFO
+server:
+  port: 8085
+spring:
+  application:
+    name: usermanagementservice
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: Karimax@2023
+    url: jdbc:mysql://localhost:3306/CRESWAVEBLOG
+    username: root
+  jpa:
+    hibernate:
+        ddl-auto: update
+        naming:
+          implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+
+  main:
+    allow-bean-definition-overriding: true
+
+token:
+  signing:
+    key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351
+
+        
+
