@@ -1,7 +1,8 @@
 package app.karimax.creswave.dao;
-import com.google.gson.Gson;
 
+import com.google.gson.Gson;
 import lombok.Data;
+
 /**
  * Default Api  response  structure .
  */
@@ -18,5 +19,5 @@ public class ApiResponse {
     public String toString() {
         return new Gson().toJson(this);
     }
-    
+
 }

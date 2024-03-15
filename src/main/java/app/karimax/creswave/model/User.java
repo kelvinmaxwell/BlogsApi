@@ -1,9 +1,7 @@
 package app.karimax.creswave.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,13 +43,15 @@ public class User implements UserDetails {
     private Integer status;
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @ManyToMany(cascade = {CascadeType.PERSIST},fetch = FetchType.EAGER)
     @JoinTable(
             name = "tbl_users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+
+
 
 
 
@@ -84,20 +84,12 @@ public class User implements UserDetails {
         return true;
     }
 
-
-
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
     public void addRole(Role role) {
         this.roles.add(role);
-    }
-
-
-    // Constructor
-    public User() {
-        this.roles = new HashSet<>(); // Initialize roles to avoid NullPointerException
     }
 
 }

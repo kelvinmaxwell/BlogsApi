@@ -24,10 +24,16 @@ public class Configs {
     private Integer record_active;
     private Integer record_inactive;
     private Integer record_archived;
+    private Integer bad_request_error_code;
+    private Integer duplicate_status_code;
+    private Integer success_status_type;
+    private Integer not_found_error_code;
+
     private String date_format;
     private String default_error_message;
     private String success_status_desc;
     private String failure_status_desc;
+    private String bad_request_error_message;
     private String not_found_status_desc;
     private String session_expired;
     private String schema;
@@ -38,5 +44,6 @@ public class Configs {
     private String jwt_secret;
     private String jwt_expiration;
     private String failed_auth_desc;
+
 
 }
