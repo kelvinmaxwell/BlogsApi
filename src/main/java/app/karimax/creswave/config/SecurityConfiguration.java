@@ -41,7 +41,7 @@ public class SecurityConfiguration {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
                         request.requestMatchers("/api/v1/auth/**", "/uploads/**").permitAll() //Permit auth end points
-                                .requestMatchers(HttpMethod.DELETE, "/api/v1/posts/**").hasAuthority("ADMIN") // Restrict delete to admins
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/posts/**","/api/v1/comments/**").hasAuthority("ADMIN") // Restrict delete to admins
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())

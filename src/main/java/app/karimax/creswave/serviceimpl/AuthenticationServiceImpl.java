@@ -40,6 +40,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserService userService;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    User user = new User();
 
     @Override
     public ApiResponse signUp(UserDto userDto) {
@@ -54,7 +55,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         } else {
             try {
                 //create new user object from user dto
-                User user = new User();
+
                 user.setUsername(userDto.getUsername());
                 user.setEmail(userDto.getEmail());
                 user.setStatus(userDto.getStatus());
@@ -97,5 +98,32 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         }
 
+    }
+
+    @Override
+    public ApiResponse updateProfile(UserDto userDto) {
+        if (userRepository.findById(userDto.getId()).isPresent()) {
+            userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));  //encrypt password for update
+            user = userRepository.findById(userDto.getId()).get();
+            User new_user;
+            new_user = user.fromDto(userDto);
+            user = userRepository.save(new_user);
+            userDto = user.toDto(user);
+            userDto.setPassword(""); //hide password  on dto object
+
+            return new SuccessResponseHandler(configs, userDto).SuccResponse();
+        }
+        return new ErrorExceptionHandler(configs).resourceNotFoundResponse();
+    }
+
+    @Override
+    public ApiResponse deleteProfile(Long id) {
+        if (userRepository.findById(id).isPresent()) {
+            userRepository.deleteById(id);
+
+
+            return new SuccessResponseHandler(configs, null).SuccResponse();
+        }
+        return new ErrorExceptionHandler(configs).resourceNotFoundResponse();
     }
 }

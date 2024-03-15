@@ -2,7 +2,9 @@ package app.karimax.creswave.controller;
 
 import app.karimax.creswave.dao.ApiResponse;
 import app.karimax.creswave.dao.PostDto;
+import app.karimax.creswave.dao.SearchDto;
 import app.karimax.creswave.exception.CustomBindingResultErrorResponse;
+import app.karimax.creswave.model.Post;
 import app.karimax.creswave.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -57,5 +59,11 @@ public class PostController {
 
 
         return ResponseEntity.ok(postService.deletePost(id));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponse> searchBlogPosts(@RequestBody SearchDto searchDto,Pageable pageable) {
+
+        return ResponseEntity.ok( postService.searchPost(searchDto.getKeyword_content(),pageable));
     }
 }

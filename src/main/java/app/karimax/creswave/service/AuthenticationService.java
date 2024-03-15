@@ -8,4 +8,8 @@ import app.karimax.creswave.request.AuthenticationRequest;
      ApiResponse signUp(UserDto userDto);
 
     ApiResponse signIn(AuthenticationRequest authenticationRequest);
+
+    ApiResponse updateProfile(UserDto userDto);
+
+    ApiResponse deleteProfile(Long id);
 }

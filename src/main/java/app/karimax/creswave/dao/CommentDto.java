@@ -16,7 +16,6 @@ public class CommentDto {
     @NotBlank(message = "username is required")
     private String username;
     @NotNull(message = "post id  is required")
-    @NotBlank(message = "post id is required")
     private Long post_id;
     private Timestamp created_at;
 }

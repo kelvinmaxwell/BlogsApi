@@ -1,5 +1,6 @@
 package app.karimax.creswave.model;
 
+import app.karimax.creswave.dao.UserDto;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -90,6 +91,32 @@ public class User implements UserDetails {
 
     public void addRole(Role role) {
         this.roles.add(role);
+    }
+
+
+    public UserDto toDto(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setUsername(user.getUsername());
+        userDto.setEmail(user.getEmail());
+        userDto.setPassword(user.getPassword());
+        userDto.setStatus(user.getStatus());
+
+
+        return userDto;
+    }
+
+    public User fromDto(UserDto userDto) {
+        User user = new User();
+        user.setId(userDto.getId());
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(userDto.getPassword());
+        user.setStatus(userDto.getStatus());
+        user.setCreated_at(this.getCreated_at());
+        user.setRoles(this.getRoles());
+        // Set other fields as needed
+        return user;
     }
 
 }

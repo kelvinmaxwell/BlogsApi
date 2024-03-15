@@ -9,10 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,6 +37,22 @@ public class AuthenticationController {
 
         }
         return ResponseEntity.ok(authenticationService.signIn(authenticationRequest));
+    }
+
+
+    @PutMapping
+    public ResponseEntity<ApiResponse> updateProfile(@Valid @RequestBody UserDto  userDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.ok(errorResponseUtil.createResponseEntity(bindingResult));
+
+        }
+        return ResponseEntity.ok(authenticationService.updateProfile(userDto));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<ApiResponse> deleteProfile(@PathVariable("id") Long id) {
+
+        return ResponseEntity.ok(authenticationService.deleteProfile(id));
     }
 
 

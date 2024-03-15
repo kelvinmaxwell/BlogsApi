@@ -11,6 +11,7 @@ import lombok.Data;
  **/
 @Data
 public class UserDto {
+    Long id;
     @NotBlank(message = "Username is required")  //validates objects has met set criteria
     private String username;
     @NotBlank(message = "Email is required")

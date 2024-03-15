@@ -67,8 +67,19 @@ public class PostServiceImpl implements PostService {
 
         if (postRepository.findById(id).isPresent()) {
             postRepository.deleteById(id);
-            return new SuccessResponseHandler(configs, null).SuccResponse(); //return null response object for object delete opreation
+            return new SuccessResponseHandler(configs, null).SuccResponse(); //return null response object for object delete opration
         }
         return new ErrorExceptionHandler(configs).resourceNotFoundResponse(); //error if resource is not found
+    }
+
+    @Override
+    public ApiResponse searchPost(String keyword, Pageable pageable) {
+        Page<Post> posts = postRepository.findByTitleContainingOrContentContaining(keyword, keyword, pageable);
+
+        return new SuccessResponseHandler(configs, posts.stream()   //map posts array to postsDto array for response
+                .map(Post::toDto)
+                .collect(Collectors.toList())).SuccResponse();
+
+
     }
 }

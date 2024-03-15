@@ -16,6 +16,8 @@ public interface PostService {
 
     ApiResponse deletePost(Long id);
 
+    ApiResponse searchPost(String keyword,Pageable pageable);
+
 
 
 }
