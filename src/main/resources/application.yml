@@ -49,7 +49,7 @@ logging:
     level:
       root: INFO
 server:
-  port: 8085
+  port: 8080
 spring:
   data:
     web:

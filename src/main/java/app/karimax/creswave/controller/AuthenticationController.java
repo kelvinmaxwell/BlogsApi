@@ -1,6 +1,7 @@
 package app.karimax.creswave.controller;
 
 import app.karimax.creswave.dao.ApiResponse;
+import app.karimax.creswave.dao.PasswordUpdateDto;
 import app.karimax.creswave.dao.UserDto;
 import app.karimax.creswave.exception.CustomBindingResultErrorResponse;
 import app.karimax.creswave.request.AuthenticationRequest;
@@ -47,6 +48,15 @@ public class AuthenticationController {
 
         }
         return ResponseEntity.ok(authenticationService.updateProfile(userDto));
+    }
+
+    @PutMapping("/updatepassword")
+    public ResponseEntity<ApiResponse> updatePassword(@Valid @RequestBody PasswordUpdateDto passwordUpdateDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.ok(errorResponseUtil.createResponseEntity(bindingResult));
+
+        }
+        return ResponseEntity.ok(authenticationService.updatePassword(passwordUpdateDto));
     }
 
     @DeleteMapping("{id}")

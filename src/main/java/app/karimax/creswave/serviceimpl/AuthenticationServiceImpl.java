@@ -2,6 +2,7 @@ package app.karimax.creswave.serviceimpl;
 
 import app.karimax.creswave.config.Configs;
 import app.karimax.creswave.dao.ApiResponse;
+import app.karimax.creswave.dao.PasswordUpdateDto;
 import app.karimax.creswave.dao.UserDto;
 import app.karimax.creswave.exception.ErrorExceptionHandler;
 import app.karimax.creswave.model.Role;
@@ -103,15 +104,46 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public ApiResponse updateProfile(UserDto userDto) {
         if (userRepository.findById(userDto.getId()).isPresent()) {
-            userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));  //encrypt password for update
             user = userRepository.findById(userDto.getId()).get();
-            User new_user;
-            new_user = user.fromDto(userDto);
-            user = userRepository.save(new_user);
-            userDto = user.toDto(user);
-            userDto.setPassword(""); //hide password  on dto object
+            if (passwordEncoder.matches(userDto.getPassword(), user.getPassword())) { //validate user password before makig change
+                if (userRepository.findByUsername(userDto.getUsername()) == null) { //confirm new username does not exist
+                    user.setUsername(user.getUsername());
+                    Set<Role> roles = new HashSet<>();
+                    roles.add(roleRepository.findByName(userDto.getRole())); //assums a user can have a single role
+                    user.setRoles(roles);
+                    user.setStatus(userDto.getStatus());
+                    userRepository.save(user);
+                    userDto.setPassword(""); //hide password from response
+                    userDto = user.toDto(user);
+                    return new SuccessResponseHandler(configs, userDto).SuccResponse();
+                } else {
+                    return new ErrorExceptionHandler(configs, configs.getDuplicateEntryDesc()).errorResponse(); //return duplicate entry error
+                }
 
-            return new SuccessResponseHandler(configs, userDto).SuccResponse();
+
+            } else {
+                return new ErrorExceptionHandler(configs, configs.getFailed_auth_desc()).errorResponse(); //return  failed authentication error
+
+            }
+
+
+        }
+        return new ErrorExceptionHandler(configs).resourceNotFoundResponse();
+    }
+
+    @Override
+    public ApiResponse updatePassword(PasswordUpdateDto passwordUpdateDto) {
+        if (userRepository.findById(passwordUpdateDto.getId()).isPresent()) {
+            user = userRepository.findById(passwordUpdateDto.getId()).get();
+            if (passwordEncoder.matches(passwordUpdateDto.getOld_password(), user.getPassword())) {
+
+                user.setPassword(passwordEncoder.encode(passwordUpdateDto.getNew_password()));
+                userRepository.save(user);
+                return new SuccessResponseHandler(configs, passwordUpdateDto).SuccResponse();
+            } else {
+                return new ErrorExceptionHandler(configs, configs.getFailed_auth_desc()).errorResponse(); //return  failed authentication error
+
+            }
         }
         return new ErrorExceptionHandler(configs).resourceNotFoundResponse();
     }
@@ -119,9 +151,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public ApiResponse deleteProfile(Long id) {
         if (userRepository.findById(id).isPresent()) {
-            userRepository.deleteById(id);
-
-
+            user = userRepository.findById(id).get();
+            user.setStatus(configs.getRecord_archived());//archive  user profile
+            userRepository.save(user);
             return new SuccessResponseHandler(configs, null).SuccResponse();
         }
         return new ErrorExceptionHandler(configs).resourceNotFoundResponse();
