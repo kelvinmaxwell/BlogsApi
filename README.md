@@ -181,17 +181,17 @@ sample end points and responsestructure( Comments
     }
    
 #### update password response:localhost:8085/api/v1/auth/updatepassword
-       ``` json
-  {
-    "status_code": 200,
-    "status_type": 1,
-    "status_desc": "Request processed successfully",
-    "results_object": {
-        "id": 99,
-        "old_password": "123456789",
-        "new_password": "1234567890"
+ ``` json
+      {
+        "status_code": 200,
+        "status_type": 1,
+        "status_desc": "Request processed successfully",
+        "results_object": {
+            "id": 99,
+            "old_password": "123456789",
+            "new_password": "1234567890"
+        }
     }
-}
 
 
 
