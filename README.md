@@ -58,7 +58,9 @@ Endpoint: localhost:8085/api/v1/comments
 Request Body: None
 Sample Response Body:
 json
-Copy code
+
+
+
 {
     "status_code": 200,
     "status_type": 1,
@@ -80,6 +82,8 @@ Copy code
         }
     ]
 }
+
+
 Create a New Comment
 Method: POST
 Endpoint: localhost:8085/api/v1/comments
@@ -93,7 +97,7 @@ Copy code
 }
 Sample Response Body:
 json
-Copy code
+
 {
     "status_code": 201,
     "status_type": 1,
