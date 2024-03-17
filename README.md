@@ -59,7 +59,7 @@ sample end points and responsestructure( Comments
       }
   }
 
-  #### Post a Comment 
+#### Post a Comment 
 
 - **Method:** POST
 - **Endpoint:** `localhost:8085/api/v1/comments`
@@ -86,7 +86,7 @@ sample end points and responsestructure( Comments
       }
   }
 
-   #### PUT a Comment 
+#### PUT a Comment 
 
 - **Method:** PUT
 - **Endpoint:** `localhost:8085/api/v1/comments`
