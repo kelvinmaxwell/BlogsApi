@@ -20,6 +20,25 @@ To get started:
 
 sample end points and responsestructure( Comments
 )
+#### Get all Comment by comments
+
+- **Method:** GET
+- **Endpoint:** `localhost:8085/api/v1/comments`
+- **Request Body:** None
+- **Sample Response Body:**
+  ```json
+  {
+      "status_code": 200,
+      "status_type": 1,
+      "status_desc": "Success",
+      "results_object": {
+          "id": 1,
+          "content": "Sample comment content",
+          "post_id": 2,
+          "username": "sample_user",
+          "created_at": "2024-03-17T10:00:00Z"
+      }
+  }
 #### Get a Comment by ID
 
 - **Method:** GET
@@ -39,105 +58,69 @@ sample end points and responsestructure( Comments
           "created_at": "2024-03-17T10:00:00Z"
       }
   }
-Delete a Comment by ID
-Method: DELETE
-Endpoint: localhost:8085/api/v1/comments/{comment_id}
-Request Body: None
-Sample Response Body:
-json
-Copy code
-{
-    "status_code": 204,
-    "status_type": 1,
-    "status_desc": "Success",
-    "results_object": null
-}
-Get All Comments
-Method: GET
-Endpoint: localhost:8085/api/v1/comments
-Request Body: None
-Sample Response Body:
-json
 
+  #### Post a Comment 
 
+- **Method:** POST
+- **Endpoint:** `localhost:8085/api/v1/comments`
+- **Request Body:**
+  ```json
+  {
+          "content": "Sample comment content",
+          "post_id": 2,
+          "username": "sample_user",
+          "created_at": "2024-03-17T10:00:00Z"
+      }
+- **Sample Response Body:**
+  ```json
+  {
+      "status_code": 200,
+      "status_type": 1,
+      "status_desc": "Success",
+      "results_object": {
+          "id": 1,
+          "content": "Sample comment content",
+          "post_id": 2,
+          "username": "sample_user",
+          "created_at": "2024-03-17T10:00:00Z"
+      }
+  }
 
-{
-    "status_code": 200,
-    "status_type": 1,
-    "status_desc": "Success",
-    "results_object": [
-        {
-            "id": 1,
-            "content": "Sample comment content 1",
-            "post_id": 2,
-            "username": "sample_user",
-            "created_at": "2024-03-17T10:00:00Z"
-        },
-        {
-            "id": 2,
-            "content": "Sample comment content 2",
-            "post_id": 3,
-            "username": "sample_user",
-            "created_at": "2024-03-17T11:00:00Z"
-        }
-    ]
-}
+   #### PUT a Comment 
 
+- **Method:** PUT
+- **Endpoint:** `localhost:8085/api/v1/comments`
+- **Request Body:**
+  ```json
+  {
+          "id":1
+          "content": "Sample comment content",
+          "post_id": 2,
+          "username": "sample_user",
+          "created_at": "2024-03-17T10:00:00Z"
+      }
+- **Sample Response Body:**
+  ```json
+  {
+      "status_code": 200,
+      "status_type": 1,
+      "status_desc": "Success",
+      "results_object": {
+          "id": 1,
+          "content": "Sample comment content",
+          "post_id": 2,
+          "username": "sample_user",
+          "created_at": "2024-03-17T10:00:00Z"
+      }
+  }
+#### DELETE a Comment 
 
-Create a New Comment
-Method: POST
-Endpoint: localhost:8085/api/v1/comments
-Request Body:
-json
-Copy code
-{
-    "content": "new comment",
-    "post_id": 2,
-    "username": "kelvinmaxwell"
-}
-Sample Response Body:
-json
+- **Method:** DELETE
+- **Endpoint:** `localhost:8085/api/v1/comments/{comment_id}`
+- **Request Body:** None
+- **Sample Response Body:** None
 
-{
-    "status_code": 201,
-    "status_type": 1,
-    "status_desc": "Created",
-    "results_object": {
-        "id": 3,
-        "content": "new comment",
-        "post_id": 2,
-        "username": "kelvinmaxwell",
-        "created_at": "2024-03-17T12:00:00Z"
-    }
-}
-Update a Comment
-Method: PUT
-Endpoint: localhost:8085/api/v1/comments
-Request Body:
-json
-Copy code
-{
-    "id": 1,
-    "content": "updated comment content",
-    "post_id": 2,
-    "username": "kelvinmaxwell",
-    "created_at": "2024-03-17T13:00:00Z"
-}
-Sample Response Body:
-json
-Copy code
-{
-    "status_code": 200,
-    "status_type": 1,
-    "status_desc": "Success",
-    "results_object": {
-        "id": 1,
-        "content": "updated comment content",
-        "post_id": 2,
-        "username": "kelvinmaxwell",
-        "created_at": "2024-03-17T13:00:00Z"
-    }
-}
+  
 
 
 
